@@ -9,6 +9,31 @@ const apiBaseUrl = codespaceName
   ? `https://${codespaceName}-8000.app.github.dev`
   : 'http://localhost:8000';
 
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  const allowedOrigins = [
+    'http://localhost:5173',
+    'http://127.0.0.1:5173',
+    'http://localhost:3000',
+    'http://127.0.0.1:3000'
+  ];
+
+  if (origin && (allowedOrigins.includes(origin) || origin.endsWith('.app.github.dev') || origin.endsWith('.github.dev'))) {
+    res.header('Access-Control-Allow-Origin', origin);
+  } else {
+    res.header('Access-Control-Allow-Origin', '*');
+  }
+
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(204);
+  }
+
+  next();
+});
+
 app.use(express.json());
 
 app.get('/api/health', (_req, res) => {
