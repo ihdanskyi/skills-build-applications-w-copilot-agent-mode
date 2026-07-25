@@ -1,0 +1,23 @@
+{
+  "name": "octofit-backend",
+  "version": "1.0.0",
+  "private": true,
+  "main": "dist/server.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "dev": "ts-node src/server.ts",
+    "seed": "ts-node src/scripts/seed.ts"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "mongoose": "^8.11.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/mongoose": "^5.11.96",
+    "@types/node": "^24.13.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}
